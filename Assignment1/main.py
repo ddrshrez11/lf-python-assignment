@@ -1,18 +1,8 @@
 from datetime import datetime
 from fileinput import close
 from os.path import exists
-import pyinputplus as pyip
-from Assignment1.user_exceptions import NullValueError, NumValueError, AlphaValueError
+from user_exceptions import NullValueError, NumValueError, AlphaValueError
 import csv
-
-
-def input_data():
-    data = {}
-    data["name"] = pyip.inputStr("Name: ")
-    data["dob"] = pyip.inputDate("Date of birth (YYYY/MM/DD): ")
-    data["age"] = pyip.inputNum("Age: ")
-    data["hobbies"] = pyip.inputStr("Hobbies: ")
-    return data
 
 
 def input_name():
@@ -100,13 +90,14 @@ def saveToCSV(filename, fieldnames, data, is_new):
         if is_new:
             writer.writeheader()
         writer.writerow(data)
+        print("Record added to ", filename)
         csv_file.close()
 
         return True
 
 
 def main():
-    data = input_data()
+    data = input_form_data()
     fieldnames = ["name", "dob", "age", "hobbies"]
     filename = "info.csv"
     is_new = not exists(filename)
