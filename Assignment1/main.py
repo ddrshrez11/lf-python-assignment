@@ -4,7 +4,7 @@ from os.path import exists
 from user_exceptions import NullValueError, NumValueError, AlphaValueError
 import csv
 
-
+# Function to input name with validation
 def input_name():
     while True:
         name = input("Name: ")
@@ -19,6 +19,7 @@ def input_name():
             print("Please enter name.")
 
 
+# Function to input age with validation
 def input_age():
     while True:
         age = input("Age: ")
@@ -38,6 +39,7 @@ def input_age():
             print("Age can contain only numbers.")
 
 
+# Function to input age with validation
 def input_date():
     while True:
         date = input("Date: ")
@@ -57,6 +59,7 @@ def input_date():
             print("Date must be in format YYYY/MM/DD.")
 
 
+# Function to input hobbies with validation
 def input_hobbies():
     while True:
         hobbies = input("Hobbies: ")
@@ -71,6 +74,7 @@ def input_hobbies():
             print("Please enter hobbies.")
 
 
+# Function to call all input functions
 def input_form_data():
     data = {}
     data["name"] = input_name()
@@ -80,6 +84,7 @@ def input_form_data():
     return data
 
 
+# Function to save input data into CSV
 def saveToCSV(filename, fieldnames, data, is_new):
     if is_new:
         filemode = "w"
@@ -96,6 +101,7 @@ def saveToCSV(filename, fieldnames, data, is_new):
         return True
 
 
+# Main Function
 def main():
     data = input_form_data()
     fieldnames = ["name", "dob", "age", "hobbies"]

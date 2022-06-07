@@ -1,6 +1,6 @@
 import pandas as pd
 
-
+# Function to import dataset files
 def import_files():
     student_marks = pd.read_csv("Assignment2/dataset/student_marks.csv")
     # print(student_marks.to_string())
@@ -17,18 +17,21 @@ def import_files():
     return student_marks, student_status, student_bio
 
 
+# Function to add line breaks
 def lineBreak():
     print("\n\n")
 
 
+# Main Function
 def main():
+    # import files
     student_marks, student_status, student_bio = import_files()
 
+    # Merge data from different dataset
     student_data = student_bio.merge(student_marks, how="left", on="id")
     student_data = student_data.merge(student_status, how="left", on="id")
 
-    # print(student_data.to_string())
-
+    # Generate height information based on gender
     height_by_gender = student_data.groupby("Gender").aggregate(
         {"Height": ["min", "mean", "max"]}
     )
@@ -36,6 +39,7 @@ def main():
     print(height_by_gender)
     lineBreak()
 
+    # Generate Weight Information based on Gender
     weight_by_gender = student_data.groupby("Gender").aggregate(
         {"Weight": ["min", "mean", "max"]}
     )
@@ -43,11 +47,13 @@ def main():
     print(weight_by_gender)
     lineBreak()
 
+    # Generate People count based on Gender
     gender_count = student_data.groupby(["Gender"])["Gender"].count()
     print("People count based on Gender")
     print(gender_count)
     lineBreak()
 
+    # Generate Mean Marks Information based on Department
     avg_marks_by_dept = student_data.groupby("Department")[
         ["Mark_10th", "Mark_12th", "Mark_college"]
     ].aggregate("mean")
@@ -55,6 +61,7 @@ def main():
     print(avg_marks_by_dept)
     lineBreak()
 
+    # Generate People count based on Financial Status
     financial_status = student_data.groupby(["FinancialStatus"])[
         "FinancialStatus"
     ].count()
@@ -62,6 +69,7 @@ def main():
     print(financial_status)
     lineBreak()
 
+    # Generate People count based on Stress Level and Study Preference
     stress_level = student_data.groupby(["StressLevel", "StudyPreference"])[
         ["Gender"]
     ].count()
